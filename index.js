@@ -43,7 +43,19 @@ app.post("/signup",(req,res)=>{
     return res.redirect('sign_up.html')
 
 })
-
+app.post('/login',async (req,resp)=>{
+    var email = req.body.email;
+    var password = req.body.password
+    let emaildb  = await db.collection('users').findOne({email:email})
+    console.log(emaildb);
+    if(emaildb.password===password) {
+        resp.redirect("LoginSuccesful.html");
+    }
+    else {
+        resp.redirect("WrongDeatils.html");
+        }
+    }
+)
 
 app.get("/",(req,res)=>{
     res.set({
